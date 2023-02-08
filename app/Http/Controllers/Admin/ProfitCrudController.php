@@ -39,6 +39,7 @@ class ProfitCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->enableExportButtons();
         CRUD::column('category_id');
         CRUD::column('amount');
 
@@ -59,7 +60,16 @@ class ProfitCrudController extends CrudController
     {
         CRUD::setValidation(ProfitRequest::class);
 
-        CRUD::field('category_id');
+        $this->crud->addField([
+            'name' => 'category_id',
+            'label' => 'Category',
+            'type' => 'select2',
+            'model' => "App\Models\Category", // foreign key model
+
+            'options' => function ($query) {
+                return $query->where('parent_id', '=', NULL)->get();
+            }
+        ]);
         CRUD::field('amount');
 
         /**

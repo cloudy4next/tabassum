@@ -15,7 +15,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-danger mb-3" style="max-height: 100%;">
                     <div class="card-body">
-                        <h5 class="card-title text-center bolded"><small>Monthly Expense Mobile</small> </h5>
+                        <h4 class="card-title text-center bolded">Monthly Expense Mobile</h4>
                         <p class="card-text
                             text-center">{{ $monthlyExpenseMobile }} BDT</p>
                     </div>
@@ -26,10 +26,10 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <h4 class="card-title text-center">
                             Monthly Expense GP
-                        </h5>
-                        <p class="card-text text-center">{{ $totalCountProject }}</p>
+                        </h4>
+                        <p class="card-text text-center">{{ $gpExpense }} BDT</p>
                     </div>
                 </div>
             </div>
@@ -37,19 +37,19 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="text-white bg-dark mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Monthly Expense Polar</h5>
-                        <p class="card-text text-center">7</p>
+                        <h4 class="card-title text-center">Monthly Expense Polar</h4>
+                        <p class="card-text text-center">{{ $polarExpense }} BDT</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        {{-- <h5 class="card-title text-center">Monthly Expense Lavello</h5> --}}
-                        <h5 class="card-title text-center bolded"><small>Monthly Expense Lavello</small> </h5>
+                        {{-- <h4 class="card-title text-center">Monthly Expense Lavello</h4> --}}
+                        <h4 class="card-title text-center bolded">Monthly Expense Lavello</h4>
 
-                        <p class="card-text text-center">189</p>
+                        <p class="card-text text-center">{{ $lovelloExpense }} BDT</p>
                     </div>
                 </div>
             </div>
@@ -59,9 +59,9 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-danger mb-3" style="max-height: 100%;">
                     <div class="card-body">
-                        <h5 class="card-title text-center bolded"><small>Monthly Profit Mobile</small> </h5>
+                        <h4 class="card-title text-center bolded">Monthly Profit Mobile </h4>
                         <p class="card-text
-                            text-center">{{ $monthlyExpenseMobile }} BDT</p>
+                            text-center">{{ $mobile }} BDT</p>
                     </div>
                 </div>
             </div>
@@ -70,10 +70,10 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <h4 class="card-title text-center">
                             Monthly Profit GP
-                        </h5>
-                        <p class="card-text text-center">{{ $totalCountProject }}</p>
+                        </h4>
+                        <p class="card-text text-center">{{ $gp }}</p>
                     </div>
                 </div>
             </div>
@@ -81,17 +81,17 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="text-white bg-dark mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Monthly Profit Polar</h5>
-                        <p class="card-text text-center">7</p>
+                        <h4 class="card-title text-center">Monthly Profit Polar</h4>
+                        <p class="card-text text-center">{{ $polar }} BDT</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Monthly Profit Lavello</h5>
-                        <p class="card-text text-center">189</p>
+                        <h4 class="card-title text-center">Monthly Profit Lavello</h4>
+                        <p class="card-text text-center">{{ $lovello }} BDT</p>
                     </div>
                 </div>
             </div>

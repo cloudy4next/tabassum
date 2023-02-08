@@ -39,6 +39,7 @@ class ExpenseCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->enableExportButtons();
         CRUD::column('category_id');
         CRUD::column('amount');
         CRUD::column('purpose');

@@ -60,16 +60,16 @@ class SalaryCrudController extends CrudController
         CRUD::setValidation(SalaryRequest::class);
 
         // CRUD::field('category_id');
-       $this->crud->addField([
-        'name' => 'category_id',
-        'label' => 'Category',
-        'type' => 'select2',
-        'model' => "App\Models\Category", // foreign key model
+        $this->crud->addField([
+            'name' => 'category_id',
+            'label' => 'Category',
+            'type' => 'select2',
+            'model' => "App\Models\Category", // foreign key model
 
-        'options' => function ($query) {
-            return $query->where('parent_id','=' ,NULL)->get();
-                }
-            ]);
+            'options' => function ($query) {
+                return $query->where('parent_id', '=', NULL)->get();
+            }
+        ]);
 
         CRUD::field('amount');
         /**

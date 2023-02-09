@@ -42,6 +42,7 @@ class ProfitCrudController extends CrudController
         $this->crud->enableExportButtons();
         CRUD::column('category_id');
         CRUD::column('amount');
+        CRUD::column('created_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -59,7 +60,12 @@ class ProfitCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProfitRequest::class);
-
+        $this->crud->addField([
+        'label' => "user_id",
+        'name' => 'user_id',
+        'type' => 'hidden',
+        'value' => backpack_user()->id,
+        ]);
         $this->crud->addField([
             'name' => 'category_id',
             'label' => 'Category',

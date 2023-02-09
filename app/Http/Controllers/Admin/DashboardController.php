@@ -10,7 +10,7 @@ use App\Models\Expense;
 use App\Models\Inventment;
 use App\Models\Profit;
 use Carbon\Carbon;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $polarProfit = $this->monthlyProfitCal(['Polar']);
         //profit calculation ends
 
-
+        // dd($gpProfit);
 
         //Investment Calculation starts
         $mobileNitInv = $this->monthlyInvestmentCal($mobileCat);
@@ -102,6 +102,10 @@ class DashboardController extends Controller
 
     public function calculateRoi($initInv, $returnInv, $costInv)
     {
+        if ($initInv == 0 | $returnInv == 0)
+        {
+            return 0;
+        }
 
         $roi = (($returnInv - $initInv) / $initInv) * 100;
 
@@ -146,6 +150,7 @@ class DashboardController extends Controller
         $profitItem = Profit::whereIn('category_id', $categoryId)->whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
             ->pluck('amount');
+        // dd($profitItem);
 
         return $this->calculateSum($profitItem);
     }
@@ -159,4 +164,43 @@ class DashboardController extends Controller
 
         return $this->calculateSum($investmentItem);
     }
+
+
+    public function monthlyChart(){
+        $monthName =[];
+        $monthlyExpChart = Expense::select(
+                DB::raw("(sum(amount)) as total_of"),
+                DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
+                )
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%M')"))
+            ->get()->toArray();
+        $monthEXPData = [];
+
+        foreach($monthlyExpChart as $month)
+        {
+            array_push($monthName,$month['month']);
+
+            array_push($monthEXPData,$month['total_of']);
+        }
+
+        $monthlyProfitChart = Profit::select(
+                DB::raw("(sum(amount)) as total_of"),
+                DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
+                )
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%M')"))
+            ->get();
+        $monthData = [];
+
+        foreach($monthlyProfitChart as $month)
+        {
+            array_push($monthData,$month['total_of']);
+        }
+
+       return json_encode([$monthEXPData,$monthData,$monthName]);
+
+
+    }
+
 }

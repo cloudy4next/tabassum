@@ -23,4 +23,12 @@ Route::group([
 
     Route::crud('profit', 'ProfitCrudController');
     Route::crud('salary', 'SalaryCrudController');
+    Route::get('monthlyChart', ['as' => 'monthlyChart', 'uses' => 'DashboardController@monthlyChart']);
+
+    Route::get('index', ['as' => 'audit.log.index', 'uses' => 'ActivityController@index']);
+    Route::get('search', ['as' => 'audit.log.search', 'uses' => 'ActivityController@search']);
+    Route::get('user-name', ['as' => 'audit.log.user.name', 'uses' => 'ActivityController@getUserName']);
+
+
+
 }); // this should be the absolute last line of this file

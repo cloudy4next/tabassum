@@ -64,11 +64,17 @@ class InventmentCrudController extends CrudController
        'label' => 'Category',
        'type' => 'select2',
        'model' => "App\Models\Category", // foreign key model
-
        'options' => function ($query) {
        return $query->where('parent_id','=' ,NULL)->get();
        }
        ]);
+
+        $this->crud->addField([
+        'label' => "user_id",
+        'name' => 'user_id',
+        'type' => 'hidden',
+        'value' => backpack_user()->id,
+        ]);
         CRUD::field('amount');
 
         /**

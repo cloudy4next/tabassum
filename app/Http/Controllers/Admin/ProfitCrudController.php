@@ -60,11 +60,12 @@ class ProfitCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProfitRequest::class);
+
         $this->crud->addField([
-        'label' => "user_id",
-        'name' => 'user_id',
-        'type' => 'hidden',
-        'value' => backpack_user()->id,
+            'label' => "user_id",
+            'name' => 'user_id',
+            'type' => 'hidden',
+            'value' => backpack_user()->id,
         ]);
         $this->crud->addField([
             'name' => 'category_id',

@@ -14,7 +14,9 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ExpenseCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+        store as traitStore;
+    }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -67,12 +69,13 @@ class ExpenseCrudController extends CrudController
         $this->crud->addField([
             'label' => "user_id",
             'name' => 'user_id',
-                'type' => 'hidden',
-                'value' => backpack_user()->id,
-            ]);
+            'type' => 'hidden',
+            'value' => backpack_user()->id,
+        ]);
         CRUD::field('category_id');
         CRUD::field('amount');
         CRUD::field('purpose');
+        CRUD::column('created_at');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

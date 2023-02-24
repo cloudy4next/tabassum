@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ActivityLog extends Model
 {
@@ -12,7 +13,8 @@ class ActivityLog extends Model
     protected $table = 'activity_log';
 
 
-    public function causer() {
-        return $this->belongsTo('App\Models\User','causer_id', 'id');
+    public function causer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'causer_id', 'id');
     }
 }

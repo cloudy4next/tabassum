@@ -5,26 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Contracts\Activity;
+use Illuminate\Support\Facades\Auth;
 
 class Expense extends Model
 {
+    use LogsActivity;
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
-    use LogsActivity;
 
-    protected $fillable = ['user_id','amount','purpose','category_id'];
+    protected $fillable = ['user_id', 'amount', 'purpose', 'category_id'];
 
     protected $casts = [
-    'created_at' => 'datetime',
+        'created_at' => 'datetime',
     ];
 
-    public function user()
+    public function tapActivity(Activity $activity, string $eventName)
     {
-        return $this->belongsTo('App\Models\User');
+        $activity->causer_id = backpack_user()->id;
     }
-
     public function category()
     {
         return $this->belongsTo('App\Models\Category');
@@ -34,9 +34,13 @@ class Expense extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->useLogName('Expense')->logOnly([
-        'amount',
-        'user_id',
-        ])->setDescriptionForEvent(fn(string $eventName) => "This Expense has been {$eventName}");
+            'amount',
+            'user_id',
+        ])->setDescriptionForEvent(fn (string $eventName) => "This Expense has been {$eventName}");
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

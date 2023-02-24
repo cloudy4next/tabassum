@@ -15,11 +15,11 @@ class Expense extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    protected $fillable = ['user_id', 'amount', 'purpose', 'category_id'];
+    protected $fillable = ['user_id', 'amount', 'purpose', 'category_id', 'created_at'];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'created_at' => 'datetime',
+    // ];
 
     public function tapActivity(Activity $activity, string $eventName)
     {

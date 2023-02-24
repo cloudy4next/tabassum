@@ -67,7 +67,6 @@ class ExpenseCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ExpenseRequest::class);
-        CRUD::field('category_id');
         $this->crud->addField([
             'label' => "user_id",
             'name' => 'user_id',
@@ -77,7 +76,7 @@ class ExpenseCrudController extends CrudController
         CRUD::field('category_id');
         CRUD::field('amount');
         CRUD::field('purpose');
-        CRUD::column('created_at');
+        CRUD::field('created_at');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

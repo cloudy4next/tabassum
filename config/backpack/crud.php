@@ -455,7 +455,7 @@ return [
         // "nyn" => "Nyankole",
         // "or_IN" => "Oriya (India)",
         // "or" => "Oriya",
-        // "om_ET" => "Oromo (Ethiopia)",
+        "om_ET" => "Oromo (Ethiopia)",
         // "om_KE" => "Oromo (Kenya)",
         // "om" => "Oromo",
         // "ps_AF" => "Pashto (Afghanistan)",

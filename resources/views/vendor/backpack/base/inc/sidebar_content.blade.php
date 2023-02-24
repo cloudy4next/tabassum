@@ -18,13 +18,15 @@
         Categories</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('expense') }}'><i class='nav-icon la la-question'></i>
         Expenses</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('inventment') }}'><i class='nav-icon la la-question'></i>
-        Investments</a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('profit') }}'><i class='nav-icon la la-question'></i>
-        Profits</a></li>
+        Daily Upfront</a></li>
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('salary') }}'><i class='nav-icon la la-question'></i>
         Salaries</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('inventment') }}'><i class='nav-icon la la-question'></i>
+        Investments</a></li>
+
 <li class='nav-item'><a class='nav-link' href="{{ route('audit.log.index') }}"><i class='nav-icon la la-memory'></i>
         <span>Activity Log</span></a></li>

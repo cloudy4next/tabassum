@@ -17,7 +17,7 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('purpose')->nullable();
+            $table->longText('purpose')->nullable();
             $table->integer('amount')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');

@@ -17,6 +17,35 @@ class DashboardController extends Controller
     public function dashboard(Request $request)
     {
         // All expense start
+
+
+        //         $mobile_cat =
+        //     [
+        //         'Itel', 'Tecno', 'Marcel', 'Jio'
+        //     ];
+        // $ice_cream_cat = [
+        //     'Polar', 'Lovello',
+        // ];
+
+        // // $mobile_cat_id = Category::select('id')->whereIn('category', $mobile_cat)->pluck('id');
+        // $mobile_cat_id = new Category();
+        // $
+
+        // dd($mobile_cat_id);
+
+        // $mobile_parent_child = Category::select('category')->whereIn('parent_id', $mobile_cat_id)->pluck('category')->toArray();
+        // array_push($mobile_parent_child, 'Itel', 'Tecno', 'Marcel', 'Jio');
+
+        // dd($mobile_parent_child);
+        // $gp_id = Category::select('id')->where('category', 'Grameen Phone')->pluck('id');
+        // $gp_parent_child = Category::select('category')->where('parent_id', $gp_id)->pluck('category')->toArray();
+        // array_push($gp_parent_child, 'Grameen Phone',);
+
+        // $ice_id = Category::select('id')->where('category', 'Polar')->pluck('id');
+        // $gp_parent_child = Category::select('category')->where('parent_id', $gp_id)->pluck('category')->toArray();
+        // array_push($gp_parent_child, 'Grameen Phone',);
+
+        //
         $mobileCat = ['Itel', 'Tecno', 'Marcel'];
         $monthlyExpenseMobile = $this->expenseMonthlyCal($mobileCat);
         $gpExpense = $this->expenseMonthlyCal(['GrameenPhone']);
@@ -102,8 +131,7 @@ class DashboardController extends Controller
 
     public function calculateRoi($initInv, $returnInv, $costInv)
     {
-        if ($initInv == 0 | $returnInv == 0)
-        {
+        if ($initInv == 0 | $returnInv == 0) {
             return 0;
         }
 
@@ -166,41 +194,37 @@ class DashboardController extends Controller
     }
 
 
-    public function monthlyChart(){
-        $monthName =[];
+    public function monthlyChart()
+    {
+        $monthName = [];
         $monthlyExpChart = Expense::select(
-                DB::raw("(sum(amount)) as total_of"),
-                DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
-                )
+            DB::raw("(sum(amount)) as total_of"),
+            DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
+        )
             ->orderBy('created_at')
             ->groupBy(DB::raw("DATE_FORMAT(created_at, '%M')"))
             ->get()->toArray();
         $monthEXPData = [];
 
-        foreach($monthlyExpChart as $month)
-        {
-            array_push($monthName,$month['month']);
+        foreach ($monthlyExpChart as $month) {
+            array_push($monthName, $month['month']);
 
-            array_push($monthEXPData,$month['total_of']);
+            array_push($monthEXPData, $month['total_of']);
         }
 
         $monthlyProfitChart = Profit::select(
-                DB::raw("(sum(amount)) as total_of"),
-                DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
-                )
+            DB::raw("(sum(amount)) as total_of"),
+            DB::raw("(DATE_FORMAT(created_at, '%M')) as month")
+        )
             ->orderBy('created_at')
             ->groupBy(DB::raw("DATE_FORMAT(created_at, '%M')"))
             ->get();
         $monthData = [];
 
-        foreach($monthlyProfitChart as $month)
-        {
-            array_push($monthData,$month['total_of']);
+        foreach ($monthlyProfitChart as $month) {
+            array_push($monthData, $month['total_of']);
         }
 
-       return json_encode([$monthEXPData,$monthData,$monthName]);
-
-
+        return json_encode([$monthEXPData, $monthData, $monthName]);
     }
-
 }

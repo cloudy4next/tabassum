@@ -6,6 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Category;
+
 /**
  * Class CategoryCrudController
  * @package App\Http\Controllers\Admin
@@ -39,18 +40,19 @@ class CategoryCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        // $this->crud->denyAccess(['create', 'delete', 'show', 'update']);
 
         $data = $this->getParent();
 
         CRUD::column('category');
         $this->crud->addColumn([
-        'name' => 'parent_id',
-        'label' => 'Parent',
-        'type' => 'closure',
-        'function' => function($entry) use ($data) {
-            return $data[$entry->parent_id] ?? '--';
+            'name' => 'parent_id',
+            'label' => 'Parent',
+            'type' => 'closure',
+            'function' => function ($entry) use ($data) {
+                return $data[$entry->parent_id] ?? '--';
             }
-            ]);
+        ]);
         CRUD::column('created_at');
 
         /**
@@ -73,11 +75,11 @@ class CategoryCrudController extends CrudController
         CRUD::field('category');
 
         $this->crud->addField([
-        'label' => "Parent",
-        'name' => 'parent_id',
-        'type' => 'select',
-        'entity' => 'children',
-        'attribute' => 'category',
+            'label' => "Parent",
+            'name' => 'parent_id',
+            'type' => 'select',
+            'entity' => 'children',
+            'attribute' => 'category',
         ]);
 
         /**
@@ -103,7 +105,7 @@ class CategoryCrudController extends CrudController
         $data = [];
         foreach ($results as $result) {
             $data[$result['id']] = $result['category'];
-            }
+        }
 
         return $data;
     }

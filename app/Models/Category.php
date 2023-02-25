@@ -13,9 +13,20 @@ class Category extends Model
 
     protected $fillable = ['parent_id', 'category'];
 
+
+    public  function getCategoryName($name, $cat_id)
+    {
+        if (is_array($name)) {
+            $category_name = $this->where('category', $name)->whereIn('parent_id', $cat_id)->get()->toArray();
+        } else {
+            $category_name = $this->where('category', $name)->where('parent_id', $cat_id)->get()->toArray();
+        }
+
+        return $category_name;
+    }
     public function children()
     {
-    return $this->hasMany('App\Models\Category', 'parent_id');
+        return $this->hasMany('App\Models\Category', 'parent_id');
     }
 
     public function expenses()
@@ -31,11 +42,11 @@ class Category extends Model
 
     public function profits()
     {
-    return $this->hasMany('App\Models\Profit');
+        return $this->hasMany('App\Models\Profit');
     }
 
     public function salaries()
     {
-    return $this->hasMany('App\Models\Salary');
+        return $this->hasMany('App\Models\Salary');
     }
 }

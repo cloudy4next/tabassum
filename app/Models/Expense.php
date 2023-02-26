@@ -8,6 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Contracts\Activity;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class Expense extends Model
 {
@@ -20,6 +21,16 @@ class Expense extends Model
     // protected $casts = [
     //     'created_at' => 'datetime',
     // ];
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+    }
 
     public function tapActivity(Activity $activity, string $eventName)
     {

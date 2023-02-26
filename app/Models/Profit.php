@@ -16,6 +16,16 @@ class Profit extends Model
 
     protected $fillable = ['amount', 'category_id', 'user_id'];
 
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+    }
+
     public function tapActivity(Activity $activity, string $eventName)
     {
         $activity->causer_id = backpack_user()->id;

@@ -43,7 +43,15 @@ class ProfitCrudController extends CrudController
         $this->crud->enableExportButtons();
         CRUD::column('category_id');
         CRUD::column('amount');
-        CRUD::column('created_at');
+        // CRUD::column('created_at');
+        $this->crud->addColumn([
+            'name'     => 'created_at',
+            'label'    => 'Created At',
+            'type'     => 'closure',
+            'function' => function ($entry) {
+                return  $entry->created_at;
+            }
+        ]);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

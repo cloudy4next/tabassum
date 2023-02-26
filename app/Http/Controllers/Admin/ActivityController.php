@@ -73,7 +73,7 @@ class ActivityController extends Controller
 
     public function indexData()
     {
-        return ActivityLog::paginate(25);
+        return ActivityLog::orderBy('id', 'desc')->paginate(30);
     }
 
     public function getLogTypeData()

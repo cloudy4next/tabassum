@@ -74,6 +74,7 @@ class ExpenseCrudController extends CrudController
         }
 
         if (backpack_user()->hasRole('Super admin')) {
+
             $this->crud->addClause('whereIn', 'category_id', $super_admin_cat);
         }
 

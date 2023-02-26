@@ -59,16 +59,17 @@ class ExpenseCrudController extends CrudController
         $ice_cream_id = Category::select('id')->whereIn('category', $ice_cream_cat)->pluck('id');
         $gp_id = Category::select('id')->whereIn('category', $gp_cat)->pluck('id');
 
+
         if (backpack_user()->hasRole('Mobile')) {
-            $this->crud->addClause('whereIn', 'category_id', '=', $mobile_cat_id);
+            $this->crud->addClause('whereIn', 'category_id', $mobile_cat_id);
         }
 
         if (backpack_user()->hasRole('Polar')) {
-            $this->crud->addClause('whereIn', 'category_id', '=', $ice_cream_id);
+            $this->crud->addClause('whereIn', 'category_id', $ice_cream_id);
         }
 
         if (backpack_user()->hasRole('GP')) {
-            $this->crud->addClause('whereIn', 'category_id', '=', $gp_id);
+            $this->crud->addClause('whereIn', 'category_id', $gp_id);
         }
         CRUD::column('category_id');
         CRUD::column('user_id');

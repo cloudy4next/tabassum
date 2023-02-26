@@ -55,10 +55,11 @@ class ExpenseCrudController extends CrudController
             'GP Owner Cost', 'GP Discount ', 'Grameen Phone'
         ];
 
-        $mobile_cat_id = Category::select('id')->whereIn('category', $mobile_cat)->pluck('id');
-        $ice_cream_id = Category::select('id')->whereIn('category', $ice_cream_cat)->pluck('id');
-        $gp_id = Category::select('id')->whereIn('category', $gp_cat)->pluck('id');
+        $mobile_cat_id = Category::select('id')->whereIn('category', $mobile_cat)->pluck('id')->toArray();
+        $ice_cream_id = Category::select('id')->whereIn('category', $ice_cream_cat)->pluck('id')->toArray();
+        $gp_id = Category::select('id')->whereIn('category', $gp_cat)->pluck('id')->toArray();
 
+        $super_admin_cat =   array_merge($mobile_cat_id, $ice_cream_id, $gp_id);
 
         if (backpack_user()->hasRole('Mobile')) {
             $this->crud->addClause('whereIn', 'category_id', $mobile_cat_id);
@@ -71,6 +72,11 @@ class ExpenseCrudController extends CrudController
         if (backpack_user()->hasRole('GP')) {
             $this->crud->addClause('whereIn', 'category_id', $gp_id);
         }
+
+        if (backpack_user()->hasRole('Super admin')) {
+            $this->crud->addClause('whereIn', 'category_id', $super_admin_cat);
+        }
+
         CRUD::column('category_id');
         CRUD::column('user_id');
         CRUD::column('amount');

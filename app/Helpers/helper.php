@@ -9,7 +9,7 @@ if (!function_exists('getUserName')) {
     function getUserName($user_id)
     {
         $data = User::firstWhere('id', $user_id);
-        return $data->name ? $data->name : 'No user name found';
+        return $data ? $data->name : 'No user name found';
     }
 }
 

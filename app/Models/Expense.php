@@ -24,12 +24,12 @@ class Expense extends Model
 
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('j-F-Y, h:i A');
     }
 
     public function getUpdatedAtAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('j-F-Y, h:i A');
     }
 
     public function tapActivity(Activity $activity, string $eventName)

@@ -29,6 +29,7 @@ class ProfitCrudController extends CrudController
         CRUD::setModel(\App\Models\Profit::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/profit');
         CRUD::setEntityNameStrings('profit', 'profits');
+        $this->crud->orderBy('id', 'DESC');
     }
 
     /**

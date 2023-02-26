@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\ExpenseRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use App\Models\Category;
 
 /**
  * Class ExpenseCrudController
@@ -43,8 +44,32 @@ class ExpenseCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->enableExportButtons();
+        $mobile_cat =
+            [
+                'Itel', 'Tecno', 'Marcel', 'Jio', 'Building Cost', 'House Cost'
+            ];
+        $ice_cream_cat = [
+            'Polar', 'Lovello', 'Lovello Owner Cost', 'Polar Owner Cost'
+        ];
+        $gp_cat = [
+            'GP Owner Cost', 'GP Discount ', 'Grameen Phone'
+        ];
 
-        // $this->crud->addClause('where', 'category_id', '=', '1');
+        $mobile_cat_id = Category::select('id')->whereIn('category', $mobile_cat)->pluck('id');
+        $ice_cream_id = Category::select('id')->whereIn('category', $ice_cream_cat)->pluck('id');
+        $gp_id = Category::select('id')->where('category', 'GP')->pluck('id');
+
+        if (backpack_user()->hasRole('Mobile')) {
+            $this->crud->addClause('whereIn', 'category_id', '=', $mobile_cat_id);
+        }
+
+        if (backpack_user()->hasRole('Polar')) {
+            $this->crud->addClause('whereIn', 'category_id', '=', $ice_cream_id);
+        }
+
+        if (backpack_user()->hasRole('GP')) {
+            $this->crud->addClause('whereIn', 'category_id', '=', $gp_id);
+        }
         CRUD::column('category_id');
         CRUD::column('user_id');
         CRUD::column('amount');

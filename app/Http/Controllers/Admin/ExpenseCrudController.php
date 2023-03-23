@@ -69,21 +69,12 @@ class ExpenseCrudController extends CrudController
             $this->crud->addClause('whereIn', 'category_id', $mobile_cat_id);
         }
 
-        if (backpack_user()->hasRole('Polar')) {
+        elseif(backpack_user()->hasRole('Polar')) {
             $this->crud->addClause('whereIn', 'category_id', $ice_cream_id);
         }
 
-        if (backpack_user()->hasRole('GP')) {
+        elseif(backpack_user()->hasRole('GP')) {
             $this->crud->addClause('whereIn', 'category_id', $gp_id);
-        }
-
-        if (backpack_user()->hasRole('Super admin')) {
-
-            // $this->crud->addClause('whereIn', 'category_id', $super_admin_cat);
-
-            CRUD::addClause('whereHas', 'expenses', function($query) use ($super_admin_cat){
-            $query->whereIn('category_id', '=', $super_admin_cat);
-                });
         }
 
         CRUD::column('category_id');

@@ -53,13 +53,13 @@ class ExpenseCrudController extends CrudController
             'Polar', 'Lovello',
         ];
         $gp_cat = [
-            'GP Owner Cost', 'GP Discount ', 'Grameen Phone'
+            'Grameenphone'
         ];
 
         $mobile_cat_id = $this->categoryFinder($mobile_cat);
         $ice_cream_id = $this->categoryFinder($ice_cream_cat);
         $gp_id = $this->categoryFinder($gp_cat);
-
+        // dd($gp_id);
         $super_admin_cat =   array_merge($mobile_cat_id, $ice_cream_id, $gp_id);
 
         if (backpack_user()->hasRole('Mobile')) {
@@ -75,7 +75,7 @@ class ExpenseCrudController extends CrudController
         }
 
         if (backpack_user()->hasRole('Super admin')) {
-            var_dump($gp_id);
+            // dd($ice_cream_cat);
             $this->crud->addClause('whereIn', 'category_id', $super_admin_cat);
         }
 
@@ -139,7 +139,7 @@ class ExpenseCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function categoryFinder( $categoryName)
+    public function categoryFinder( $categoryName) : array
     {
 
         $categoryId = Category::whereIn('category', $categoryName)->pluck('id')->toArray();

@@ -47,18 +47,21 @@ class ExpenseCrudController extends CrudController
         $this->crud->enableExportButtons();
         $mobile_cat =
             [
-                'Itel', 'Tecno', 'Marcel', 'Jio', 'Building Cost', 'House Cost'
+                'Itel', 'Tecno', 'Marcel', 'Jio'
             ];
-        $ice_cream_cat = [
-            'Polar', 'Lovello', 'Lovello Owner Cost', 'Polar Owner Cost'
+        $ice_cream_cat =
+        [
+            'Polar', 'Lovello',
         ];
-        $gp_cat = [
-            'GP Owner Cost', 'GP Discount ', 'Grameen Phone'
+        $gp_cat =
+        [
+            'Grameenphone'
         ];
 
-        $mobile_cat_id = Category::select('id')->whereIn('category', $mobile_cat)->pluck('id')->toArray();
-        $ice_cream_id = Category::select('id')->whereIn('category', $ice_cream_cat)->pluck('id')->toArray();
-        $gp_id = Category::select('id')->whereIn('category', $gp_cat)->pluck('id')->toArray();
+
+        $mobile_cat_id = $this->categoryFinder($mobile_cat);
+        $ice_cream_id = $this->categoryFinder($ice_cream_cat);
+        $gp_id = $this->categoryFinder($gp_cat);
 
         $super_admin_cat =   array_merge($mobile_cat_id, $ice_cream_id, $gp_id);
 
@@ -80,10 +83,10 @@ class ExpenseCrudController extends CrudController
         }
 
         CRUD::column('category_id');
-        CRUD::column('user_id');
+        // CRUD::column('user_id');
         CRUD::column('amount');
         CRUD::column('purpose');
-        // CRUD::column('created_at');
+        CRUD::column('created_at');
         $this->crud->addColumn([
             'name'     => 'created_at',
             'label'    => 'Created At',
@@ -137,5 +140,14 @@ class ExpenseCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+    public function categoryFinder( $categoryName) : array
+    {
+
+        $categoryId = Category::whereIn('category', $categoryName)->pluck('id')->toArray();
+        $categoryChild  = Category::whereIn('parent_id', $categoryId)->pluck('id')->toArray();
+        $catArray = array_merge($categoryId, $categoryChild);
+
+        return $catArray;
     }
 }

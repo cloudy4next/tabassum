@@ -64,7 +64,7 @@ class ExpenseCrudController extends CrudController
         $gp_id = $this->categoryFinder($gp_cat);
 
         $super_admin_cat =   array_merge($mobile_cat_id, $ice_cream_id, $gp_id);
-        dd($super_admin_cat);
+        // dd($super_admin_cat);
         if (backpack_user()->hasRole('Mobile')) {
             $this->crud->addClause('whereIn', 'category_id', $mobile_cat_id);
         }
@@ -78,7 +78,6 @@ class ExpenseCrudController extends CrudController
         }
 
         if (backpack_user()->hasRole('Super admin')) {
-
             $this->crud->addClause('whereIn', 'category_id', $super_admin_cat);
         }
 
